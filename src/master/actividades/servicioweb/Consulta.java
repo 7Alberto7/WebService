@@ -54,6 +54,13 @@ public class Consulta extends Activity {
 		btnSiguiente = (ImageButton) findViewById(R.id.btnSiguiente);
 		btnUltimo = (ImageButton) findViewById(R.id.btnUltimo);
 		
+		if (totalRegistros == 1) {
+			btnPrimero.setVisibility(View.GONE);
+			btnAnterior.setVisibility(View.GONE);
+			btnSiguiente.setVisibility(View.GONE);
+			btnUltimo.setVisibility(View.GONE);
+		}
+		
 		btnPrimero.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
