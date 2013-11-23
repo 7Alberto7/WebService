@@ -195,7 +195,7 @@ public class Principal extends Activity {
     	        Bundle extras = data.getExtras();
     	        if(extras != null) {
         	        int salida = extras.getInt("Salida");
-        	        if (salida == 0 || salida == 1) {
+        	        if (salida == 1) {
         	        	Toast.makeText(this, getString(R.string.insercion_realizada), Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(this, getString(R.string.insercion_cancelada), Toast.LENGTH_SHORT).show();
@@ -209,7 +209,7 @@ public class Principal extends Activity {
     	        Bundle extras = data.getExtras();
     	        if(extras != null) {
 	    	        int salida = extras.getInt("Salida");
-	    	        if (salida == 0 || salida == 1) {
+	    	        if (salida == 1) {
 	    	        	Toast.makeText(this, getString(R.string.borrado_realizado), Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(this, getString(R.string.borrado_cancelado), Toast.LENGTH_SHORT).show();
@@ -223,7 +223,7 @@ public class Principal extends Activity {
     	        Bundle extras = data.getExtras();
     	        if(extras != null) {
 	    	        int salida = extras.getInt("Salida");
-	    	        if (salida == 0 || salida == 1) {
+	    	        if (salida == 1) {
 	    	        	Toast.makeText(this, getString(R.string.actualizacion_realizada), Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(this, getString(R.string.actualizacion_cancelada), Toast.LENGTH_SHORT).show();
