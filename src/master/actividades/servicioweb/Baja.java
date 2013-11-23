@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class Baja extends Activity {
 	private static final int DELETE  = 3;
@@ -124,6 +125,7 @@ public class Baja extends Activity {
         //Es algo que se ejecuta en Background, es decir, no está conectado con la interfaz.
         protected HttpResponse doInBackground(BasicNameValuePair... params) {
         	HttpResponse response = null;
+        	AndroidHttpClient httpclient = null;
         	
         	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(params.length);
         	for(int i=0; i<params.length; i++){
@@ -132,7 +134,7 @@ public class Baja extends Activity {
        	
         	try{
     	        //HttpClient httpclient = new DefaultHttpClient();
-    	        AndroidHttpClient httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+    	        httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
     	        HttpPost httppost = new HttpPost(new Url(DELETE, Baja.this).toString());
     	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
     	        //httppost.setEntity(new StringEntity(content));
@@ -140,6 +142,9 @@ public class Baja extends Activity {
         	}catch(Exception e){
     	        Log.e(getString(R.string.nombre_app), R.string.errorHTTP+": "+e.toString());
         	}
+        	if (httpclient != null) {
+				httpclient.close();
+			}
 
 	        return response;
         }
@@ -154,26 +159,31 @@ public class Baja extends Activity {
             // dismiss the dialog once done
             pDialog.dismiss();
             
-            int responseCode = response.getStatusLine().getStatusCode();
-            String responseMessage = response.getStatusLine().getReasonPhrase();
-
-	        HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                String responseString;
-				try {
-					responseString = EntityUtils.toString(entity);
-					message = responseString;
-					JSONArray messageJson = new JSONArray(message);
-		            volver(messageJson);
-				} 
-				catch (ParseException e) {} catch (JSONException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-            } else {
-            	message = responseCode+": "+responseMessage;
-            }
+            if (response != null) {
+            
+	            int responseCode = response.getStatusLine().getStatusCode();
+	            String responseMessage = response.getStatusLine().getReasonPhrase();
+	
+		        HttpEntity entity = response.getEntity();
+	            if (entity != null) {
+	                String responseString;
+					try {
+						responseString = EntityUtils.toString(entity);
+						message = responseString;
+						JSONArray messageJson = new JSONArray(message);
+			            volver(messageJson);
+					} 
+					catch (ParseException e) {} catch (JSONException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	            } else {
+	            	message = responseCode+": "+responseMessage;
+	            }
+			} else {
+				Toast.makeText(getApplicationContext(), getString(R.string.no_se_ha_podido_establecer_la_conexion), Toast.LENGTH_SHORT).show();
+			}
         }
  
     }
