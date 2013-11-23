@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="preferencias_configuracion"
+    android:title="@string/datos_conectividad" >
+    
+    <EditTextPreference
+        android:key="url"
+        android:title="@string/url_servidor"
+        android:summary="@string/descripcion_url_servidor" />
+    
+    <EditTextPreference
+        android:key="usuario"
+        android:title="@string/usuario"
+        android:summary="@string/descripcion_usuario" />
+    
+    <EditTextPreference
+        android:key="contrasenia"
+        android:title="@string/palabra_clave"
+        android:summary="@string/descripcion_palabra_clave" />
+
+</PreferenceScreen>

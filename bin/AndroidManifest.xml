@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="master.actividades.servicioweb"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/nombre_app"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="master.actividades.servicioweb.Inicial"
+            android:label="@string/nombre_app" >
+        </activity>
+        <activity
+            android:name="master.actividades.servicioweb.Principal"
+            android:label="@string/nombre_app" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="master.actividades.servicioweb.Consulta"
+            android:label="@string/nombre_app"
+            android:parentActivityName="master.actividades.servicioweb.Principal" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="master.actividades.servicioweb.Principal" />
+        </activity>
+        <activity
+            android:name="master.actividades.servicioweb.Alta"
+            android:label="@string/nombre_app" >
+        </activity>
+        <activity
+            android:name="master.actividades.servicioweb.Edicion"
+            android:label="@string/nombre_app" >
+        </activity>
+        <activity
+            android:name="master.actividades.servicioweb.Baja"
+            android:label="@string/nombre_app" >
+        </activity>
+        <activity
+            android:name="master.actividades.servicioweb.ConfiguracionConexion"
+            android:label="@string/datos_conectividad" >
+        </activity>
+    </application>
+
+</manifest>
