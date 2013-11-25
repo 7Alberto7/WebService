@@ -46,12 +46,39 @@ public class Principal extends Activity {
 	private ImageButton btnBaja;
     // Progress Dialog
     private ProgressDialog pDialog;
+    private boolean onPause = false;
+    private boolean inicio = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-    	new Connect().execute();
 
 		super.onCreate(savedInstanceState);
+    	new Connect().execute();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		onPause = true;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		if (onPause) {
+			if (inicio) {
+				crearVistaPrincipal();
+				
+				inicio = false;
+			}
+			
+			onPause = false;
+		}
+	}
+
+	private void crearVistaPrincipal() {
 		setContentView(R.layout.activity_principal);
 		
 		btnConsulta = (ImageButton) findViewById(R.id.btnConsulta);
@@ -452,6 +479,8 @@ public class Principal extends Activity {
 			Intent i = new Intent(this, ConfiguracionConexion.class);
 			startActivity(i);
 			Toast.makeText(getApplicationContext(), getString(R.string.no_se_ha_podido_establecer_la_conexion), Toast.LENGTH_SHORT).show();
+		} else {
+			crearVistaPrincipal();
 		}
 	}
 
