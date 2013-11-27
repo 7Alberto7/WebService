@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -155,6 +156,13 @@ public class Consulta extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+    @Override
+	public void onBackPressed() {		
+    	Intent i = new Intent();
+		setResult(RESULT_OK, i);
+		finish();
 	}
 
 }

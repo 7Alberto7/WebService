@@ -168,7 +168,7 @@ public class Principal extends Activity {
 	private void consultar(JSONArray respJSON) throws JSONException {
 		int numRegistros = respJSON.getJSONObject(0).getInt("NUMREG");
 		
-		if (numRegistros == 0) {
+		if (numRegistros <= 0) {
 			Toast.makeText(getApplicationContext(), getString(R.string.registro_no_existente), Toast.LENGTH_SHORT).show();
 		} else {
 	   		Intent i = new Intent(this, Consulta.class);		
@@ -217,7 +217,11 @@ public class Principal extends Activity {
 	
     @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)	{
-    	if (requestCode == ACTIVIDAD_ALTA) {
+    	if (requestCode == ACTIVIDAD_CONSULTA) {
+    		if (resultCode == RESULT_OK) {
+    			Toast.makeText(this, getString(R.string.consulta_finalizada), Toast.LENGTH_SHORT).show();
+    		}
+		} else if (requestCode == ACTIVIDAD_ALTA) {
     		if (resultCode == RESULT_OK) {
     	        Bundle extras = data.getExtras();
     	        if(extras != null) {
@@ -262,7 +266,6 @@ public class Principal extends Activity {
 		} else if (requestCode == ACTIVIDAD_CONECTAR) {
     		if (resultCode == RESULT_OK) {
 				Toast.makeText(this, getString(R.string.servicio_conectado), Toast.LENGTH_SHORT).show();
-
     		} else {
     			Toast.makeText(this, getString(R.string.no_se_ha_podido_establecer_la_conexion), Toast.LENGTH_SHORT).show();
     		}
@@ -376,7 +379,7 @@ public class Principal extends Activity {
 	
 	private void configurarConexion() {
    		Intent i = new Intent(this, ConfiguracionConexion.class);
-   		startActivity(i);
+   		startActivityForResult(i,ACTIVIDAD_CONECTAR);
 	}
     
     
@@ -477,10 +480,11 @@ public class Principal extends Activity {
 
 		if (salida == -1) {
 			Intent i = new Intent(this, ConfiguracionConexion.class);
-			startActivity(i);
+	   		startActivityForResult(i,ACTIVIDAD_CONECTAR);
 			Toast.makeText(getApplicationContext(), getString(R.string.no_se_ha_podido_establecer_la_conexion), Toast.LENGTH_SHORT).show();
 		} else {
 			crearVistaPrincipal();
+			Toast.makeText(this, getString(R.string.servicio_conectado), Toast.LENGTH_SHORT).show();
 		}
 	}
 
